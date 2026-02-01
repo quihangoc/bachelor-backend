@@ -53,5 +53,25 @@ public class PlayerService {
         return playerList;
     }
 
+    public List<Player> getSortedList(){
+        List<Player> playerList = playerRepository.findAll();
 
+        return sortByName(playerList);
+    }
+
+    private List<Player> sortByName(List<Player> playerList){
+        for (int i = 0; i < playerList.size(); i++) {
+            for (int j = i + 1; j < playerList.size(); j++) {
+                if (playerList.get(i).getName()
+                        .compareTo(playerList.get(j).getName()) > 0) {
+
+                    Player temp = playerList.get(i);
+                    playerList.set(i, playerList.get(j));
+                    playerList.set(j, temp);
+                }
+            }
+        }
+
+        return playerList;
+    }
 }
