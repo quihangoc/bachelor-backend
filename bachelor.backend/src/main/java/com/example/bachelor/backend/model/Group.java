@@ -9,15 +9,14 @@ import java.util.List;
 @Entity
 @Data
 @AllArgsConstructor
-public class Player {
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    private int score;
-
     @ManyToMany
-    private List<Group> groupList;
+    private List<Player> playerlist;
 }
+
