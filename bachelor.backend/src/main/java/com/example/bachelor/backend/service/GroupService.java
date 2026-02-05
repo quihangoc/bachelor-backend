@@ -59,7 +59,7 @@ public class GroupService {
         return groupList;
     }
 
-    public List<Player> getPlayerOfGroup(Long id){
+    public List<Player> getPlayersOfGroup(Long id){
         Group group = groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Group mit ID " + id + " nicht gefunden"));
 
@@ -69,7 +69,7 @@ public class GroupService {
         return group.getPlayerlist();
     }
 
-    public Player getFirstRankedPlayer(Long id ){
+    public Player getFirstRankedPlayer(Long id){
         Group group = groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Group mit ID " + id + " nicht gefunden"));
 
@@ -83,7 +83,7 @@ public class GroupService {
         return playerList.get(0);
     }
 
-    public double getAverageGroupScoreBuggy(Long groupId) {
+    public double getAverageGroupScore(Long groupId) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Group mit ID " + groupId + " nicht gefunden"));
