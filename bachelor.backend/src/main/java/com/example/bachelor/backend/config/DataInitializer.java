@@ -19,34 +19,28 @@ public class DataInitializer {
                                GroupRepository groupRepository) {
         return args -> {
 
-            // Nur initialisieren, wenn noch keine Daten vorhanden sind
             if (playerRepository.count() == 0 && groupRepository.count() == 0) {
 
-                // --- 1) Gruppen anlegen ---
                 Group groupA = new Group(null, "Team Alpha", new ArrayList<>());
                 Group groupB = new Group(null, "Team Beta", new ArrayList<>());
 
                 groupRepository.save(groupA);
                 groupRepository.save(groupB);
 
-                // --- 2) Spieler anlegen ---
                 Player p1 = new Player(null, "Alice", 120, new ArrayList<>());
                 Player p2 = new Player(null, "Bob", 80, new ArrayList<>());
                 Player p3 = new Player(null, "Charlie", 150, new ArrayList<>());
                 Player p4 = new Player(null, "Diana", 90, new ArrayList<>());
 
-                // --- 3) Zuordnung Player -> Groups ---
                 p1.setGroupList(List.of(groupA));
                 p2.setGroupList(List.of(groupA));
 
                 p3.setGroupList(List.of(groupB));
                 p4.setGroupList(List.of(groupB));
 
-                // --- 4) Zuordnung Group -> Player (wichtig bei ManyToMany) ---
                 groupA.setPlayerlist(List.of(p1, p2));
                 groupB.setPlayerlist(List.of(p3, p4));
 
-                // --- 5) Speichern ---
                 playerRepository.save(p1);
                 playerRepository.save(p2);
                 playerRepository.save(p3);
