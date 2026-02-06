@@ -13,6 +13,9 @@ public class PlayerService {
     @Autowired
     private PlayerRepository playerRepository;
 
+    /*
+    Erstellt einen Spieler
+     */
     public Player createPlayer(Player player){
         if(player != null){
             Player savedPlayer = playerRepository.save(player);
@@ -20,12 +23,19 @@ public class PlayerService {
         }
         return null;
     }
+
+    /*
+    Gibt einen Spieler zurück
+     */
     public Player getPlayer(Long id){
         return playerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Player mit ID " + id + " nicht gefunden"));
     }
 
+    /*
+    Bearbeitet die Felder eines Spielers.
+     */
     public Player editPlayer(Player player){
         Player editedPlayer = playerRepository.findById(player.getId()).orElseThrow(() -> new EntityNotFoundException(
                 "Player mit ID " + player.getId() + " nicht gefunden"));
@@ -35,6 +45,9 @@ public class PlayerService {
         return editedPlayer;
     }
 
+    /*
+    Gibt eine Rangliste nach Punktzahl absteigend sortiert zurück.
+     */
     public List<Player> getRankedList() {
         List<Player> playerList = playerRepository.findAll();
 
@@ -53,12 +66,16 @@ public class PlayerService {
         return playerList;
     }
 
+    /*
+    Gibt eine Liste der Spieler nach dem Alphabet sortiert zurück
+     */
     public List<Player> getSortedList(){
         List<Player> playerList = playerRepository.findAll();
 
         return sortByName(playerList);
     }
 
+    //Hilfsmethode
     private List<Player> sortByName(List<Player> playerList){
         for (int i = 0; i < playerList.size(); i++) {
             for (int j = i + 1; j < playerList.size(); j++) {

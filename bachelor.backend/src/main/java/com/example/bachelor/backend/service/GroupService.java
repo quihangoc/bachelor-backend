@@ -19,6 +19,9 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
+    /*
+    Erstellt eine neue Gruppe
+     */
     public Group createGroup(Group group){
         if(group != null){
             return groupRepository.save(group);
@@ -26,6 +29,9 @@ public class GroupService {
         return null;
     }
 
+    /*
+    Gibt die Gesamtpunktzahl der Gruppe wieder.
+     */
     public int getGroupScore(Long id){
         int score = 0;
         Group group = groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
@@ -38,6 +44,9 @@ public class GroupService {
         return score;
     }
 
+    /*
+    Gibt eine Rangliste der Gruppen zurück. Absteigend nach der Punktzahl sortiert.
+     */
     public List<Group> getRankedList() {
         List<Group> groupList = groupRepository.findAll();
 
@@ -59,6 +68,9 @@ public class GroupService {
         return groupList;
     }
 
+    /*
+    Gibt die Spieler der Gruppe als Liste zurück
+     */
     public List<Player> getPlayersOfGroup(Long id){
         Group group = groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Group mit ID " + id + " nicht gefunden"));
@@ -69,6 +81,9 @@ public class GroupService {
         return group.getPlayerlist();
     }
 
+    /*
+    Gibt den Spieler mit dem höchsten Score zurück.
+     */
     public Player getFirstRankedPlayer(Long id){
         Group group = groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Group mit ID " + id + " nicht gefunden"));
@@ -83,6 +98,9 @@ public class GroupService {
         return playerList.get(0);
     }
 
+    /*
+    Gibt die durchschnittliche Punktzahl der Gruppe zurück.
+     */
     public double getAverageGroupScore(Long groupId) {
         Group group = groupRepository.findById(groupId)
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -104,7 +122,7 @@ public class GroupService {
     }
 
 
-
+//Hilfsmethoden
     private int calculateGroupScore(Group group){
         int score = 0;
         for(Player player : group.getPlayerlist()){
